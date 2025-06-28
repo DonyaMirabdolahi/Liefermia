@@ -1,240 +1,197 @@
-### 🧪 معرفی پروژه
+# LiefermiA - Pizza Ordering App
 
-**LiefermiA** یک پلتفرم مدرن سفارش غذای آنلاین در کشور آلمان است که به رستوران‌ها امکان می‌دهد منوی خود را دیجیتال کرده و تجربه‌ای سریع، ساده و شخصی‌سازی‌شده را به مشتریان ارائه دهند.
+## 🍕 About
 
-این پروژه با هدف ارزیابی توانمندی‌های شما در طراحی رابط کاربری (UI/UX) و پیاده‌سازی منطق انتخاب محصول و افزونه‌ها طراحی شده است.
+**LiefermiA** is a modern pizza ordering application built with Laravel backend and React frontend. This project demonstrates a complete food ordering system with dynamic pricing, customizable toppings, and real-time order management.
 
----
+## 🎯 Features
 
-### 🎯 هدف پروژه
+-   **Interactive Pizza Selection**: Browse available pizzas with images and descriptions
+-   **Dynamic Size Selection**: Choose from Small, Medium, Large, and XLarge sizes
+-   **Customizable Toppings**: Select from various categories (Cheese, Meats, Vegetables, Premium)
+-   **Smart Rule System**:
+    -   Dropdown selection for single choices
+    -   Checkbox selection for multiple choices
+    -   Maximum selection limits
+    -   Free topping options
+-   **Real-time Price Calculation**: Automatic price updates based on selections
+-   **Quantity Management**: Adjust order quantities
+-   **Order Submission**: Complete order process with detailed information
 
-شما باید یک رابط کاربری تعاملی برای سفارش غذا طراحی و پیاده‌سازی کنید که در آن:
+## 🛠 Technology Stack
 
-* نمایش لیست محصولات به صورت حرفه‌ای و کاربرپسند
-* امکان انتخاب آیتم، سایز، و افزونه‌ها توسط کاربر
-* بارگذاری رول‌ها و افزونه‌ها بر اساس سایز انتخاب‌شده
-* اعمال محدودیت‌ها با استفاده از:
+### Backend
 
-  * نوع انتخاب: `dropdown` یا `checkbox`
-  * تعداد مجاز: `max_option`
-  * افزونه‌های رایگان: `free_options`
-* در صورت وجود `item.max_option`، مجموع افزونه‌های انتخاب‌شده نباید بیشتر از آن مقدار شود
-* محاسبه و نمایش قیمت نهایی براساس سایز، تعداد و افزونه‌ها
-* قابلیت تعیین تعداد هر آیتم توسط کاربر
+-   **Laravel 12** - PHP framework
+-   **MySQL** - Database
+-   **Eloquent ORM** - Database management
+-   **API Resources** - Data transformation
 
-> در نهایت، خروجی باید به صورت JSON معتبر به مسیر زیر ارسال شود:
+### Frontend
 
-```
-POST /items
-```
+-   **React** - User interface
+-   **Vite** - Build tool
+-   **Tailwind CSS** - Styling
+-   **Axios** - HTTP client
 
----
+## 📋 Requirements
 
-### 🔍 ساختار داده
+-   PHP ^8.4
+-   Node.js & NPM
+-   Composer
+-   MySQL
 
-هر محصول دارای ویژگی‌های زیر است:
+## 🚀 Installation
 
-* سایزهای مختلف (Small، Medium، Large، XLarge) با قیمت خاص
-* رول‌ها و افزونه‌های مرتبط با هر سایز
-* افزونه‌هایی با قیمت‌های متفاوت
-* محدودیت‌های انتخاب بر اساس قوانین موجود در هر rule
+1. **Clone the repository**
 
----
+    ```bash
+    git clone https://github.com/DonyaMirabdolahi/Liefermia.git
+    cd Liefermia
+    ```
 
-### 📜 جدول قوانین انتخاب افزونه‌ها
+2. **Install PHP dependencies**
 
-| ویژگی                       | توضیح                                         |
-| --------------------------- | --------------------------------------------- |
-| `field_type = dropdown`     | فقط یک گزینه قابل انتخاب است                  |
-| `field_type = checkbox`     | چند گزینه قابل انتخاب تا سقف `max_option`     |
-| `guard_name = free_options` | افزونه‌ها رایگان هستند (قیمت = ۰)             |
-| `guard_name = max_options`  | حداکثر تعداد انتخاب در آن رول را تعیین می‌کند |
-| `item.max_option`           | محدودیت مجموع افزونه‌های انتخابی برای آیتم    |
+    ```bash
+    composer install
+    ```
 
----
+3. **Install Node.js dependencies**
 
-### 📤 ارسال داده
+    ```bash
+    npm install
+    ```
 
-هنگام ارسال به API:
+4. **Environment setup**
 
-```
-POST /items
-```
+    ```bash
+    cp .env.example .env
+    php artisan key:generate
+    ```
 
-داده ارسالی باید شامل موارد زیر باشد:
+5. **Database setup**
+    ```bash
+    php artisan migrate --seed
+    ```
 
-* شناسه آیتم
-* سایز انتخاب‌شده
-* رول‌ها و افزونه‌های انتخاب‌شده
-* تعداد سفارش
-* قیمت نهایی (اختیاری ولی توصیه‌شده)
+## 🏃‍♂️ Running the Application
 
----
-
-### 🛠 راه‌اندازی پروژه
-
-#### پیش‌نیازها:
-
-* PHP ^8.4
-* Node.js & NPM
-* Composer
-  [https://getcomposer.org/download/](https://getcomposer.org/download/)
-
-#### نصب و اجرا:
-
-```bash
-composer install
-npm install
-cp .env.example .env
-php artisan key:generate
-php artisan migrate --seed
-```
-
-✅ اجرای لوکال:
+### Backend (Laravel)
 
 ```bash
 php artisan serve
 ```
 
-✅ اجرای سریع (فقط در Linux):
+The API will be available at `http://localhost:8000`
+
+### Frontend (React/Vite)
 
 ```bash
-php artisan octane:start --port=8000
+npm run dev
 ```
 
----
+The frontend will be available at `http://localhost:5173`
 
-### ✅ نکات ارزیابی
+## 📊 Database Structure
 
-* طراحی واکنش‌گرا و حرفه‌ای
-* پیاده‌سازی دقیق منطق رول‌ها و قوانین
-* کنترل صحیح محدودیت‌ها
-* ساختار JSON تمیز و قابل فهم
-* کدنویسی منظم و قابل نگهداری
+### Core Models
 
----
+-   **Items** - Pizza products with images and descriptions
+-   **Sizes** - Available sizes (Small, Medium, Large, XLarge)
+-   **Extras** - Toppings and add-ons
+-   **Rules** - Selection rules and constraints
+-   **Users** - User management
 
-با آرزوی موفقیت
-**(تیم توسعه LiefermiA)**
+### Relationships
 
----
+-   Items ↔ Sizes (with pricing)
+-   Items ↔ Extras (available toppings)
+-   Items ↔ Rules (selection constraints)
+-   Rules ↔ Extras (available options)
+-   Extras ↔ Sizes (pricing per size)
 
+## 🔧 API Endpoints
 
-### 🧪 Project Overview
+### Items
 
-**LiefermiA** is a modern food delivery platform based in Germany. It helps restaurants digitize their menus and offers customers a fast, simple, and personalized ordering experience.
+-   `GET /api/items` - List all available pizzas
+-   `GET /api/items/{id}/details` - Get detailed pizza information
+-   `POST /items` - Submit order
 
-This challenge evaluates your skills in building UI components and handling complex product customization logic.
+### Order Data Structure
 
----
-
-### 🎯 Project Objective
-
-Build an interactive and responsive food ordering UI that allows users to:
-
-* View and select products from a clean product list
-* Select the desired size of each item (Small, Medium, Large, XLarge)
-* Dynamically load rules and extras based on the selected size
-* Apply rule-based logic, including:
-
-  * Selection type: `dropdown` (single) or `checkbox` (multi)
-  * Maximum allowed selections (`max_option`)
-  * Free extras (`free_options`)
-* Enforce the item-level `max_option` if provided (limit total selected extras)
-* Accurately calculate and display the total price based on size, quantity, and extras
-* Allow users to choose the quantity of each item
-
-> The final selection must be submitted as a **valid JSON** object to the following endpoint:
-
-```
-POST /items
-```
-
----
-
-### 🔍 Data Structure
-
-Each item includes:
-
-* Multiple sizes (Small, Medium, Large, XLarge) with different base prices
-* Associated rules and extras per size
-* Extras with varying prices per size
-* Guard logic to enforce selection constraints
-
----
-
-### 📜 Rule Types
-
-| Property                    | Description                                      |
-| --------------------------- | ------------------------------------------------ |
-| `field_type = dropdown`     | Only one option can be selected                  |
-| `field_type = checkbox`     | Multiple selections allowed (up to `max_option`) |
-| `guard_name = free_options` | Extras are free (price = 0)                      |
-| `guard_name = max_options`  | Limits the number of selectable extras           |
-| `item.max_option`           | Limits the total number of selected extras       |
-
----
-
-### 📤 Data Submission
-
-When sending the data:
-
-```
-POST /items
+```json
+{
+    "item_id": 1,
+    "item_name": "Margherita",
+    "size": {
+        "id": 2,
+        "name": "Medium",
+        "price": 12.99
+    },
+    "quantity": 2,
+    "extras": [
+        {
+            "rule_id": 1,
+            "rule_name": "Choose Your Cheese",
+            "extra_id": 3,
+            "extra_name": "Parmesan",
+            "extra_price": 1.5
+        }
+    ],
+    "total_price": 28.98
+}
 ```
 
-Payload should include:
+## 🎨 UI Components
 
-* `item_id`
-* selected `size`
-* selected rules and extras
-* quantity of the item
-* total price (optional but recommended)
+-   **Product Grid** - Display available pizzas
+-   **Modal System** - Detailed product view and customization
+-   **Size Selector** - Interactive size buttons
+-   **Topping Selector** - Dynamic rule-based selection
+-   **Quantity Controls** - Increment/decrement buttons
+-   **Price Calculator** - Real-time total display
+-   **Success Modal** - Order confirmation
 
----
+## 🔒 Business Rules
 
-### 🛠 Project Setup
+### Selection Constraints
 
-#### Requirements:
+-   **Dropdown Rules**: Single selection only
+-   **Checkbox Rules**: Multiple selections up to `max_option`
+-   **Free Options**: Zero-cost toppings
+-   **Item Limits**: Total extras cannot exceed `item.max_option`
 
-* PHP ^8.4
-* Node.js & NPM
-* Composer
-  [https://getcomposer.org/download/](https://getcomposer.org/download/)
+### Pricing Logic
 
-#### Installation:
+-   Base price from selected size
+-   Additional cost for selected extras
+-   Quantity multiplier
+-   Real-time calculation updates
 
-```bash
-composer install
-npm install
-cp .env.example .env
-php artisan key:generate
-php artisan migrate --seed
-```
+## 📱 Responsive Design
 
-✅ Local Run:
+The application is fully responsive and works on:
 
-```bash
-php artisan serve
-```
+-   Desktop computers
+-   Tablets
+-   Mobile phones
 
-✅ Octane (Linux only):
+## 🤝 Contributing
 
-```bash
-php artisan octane:start --port=8000
-```
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
----
+## 📄 License
 
-### ✅ Evaluation Criteria
+This project is open source and available under the [MIT License](LICENSE).
 
-* Responsive and modern UI
-* Correct implementation of rule logic
-* Proper handling of constraints and validations
-* Clean, readable, and structured JSON output
-* Maintainable and optimized code
+## 👨‍💻 Developer
+
+**Donya Mirabdolahi**
 
 ---
 
-Good luck!
-**(LiefermiA Development Team)**
+_Built with ❤️ using Laravel and React_
